@@ -5,7 +5,6 @@ import com.quid.innteci.manage.task.security.jwt.JwtTokenProvider;
 import com.quid.innteci.manage.task.service.AuthenticationService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
