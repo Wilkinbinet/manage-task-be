@@ -27,6 +27,9 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
+/**
+ * This class contains unit tests for the TaskServiceImpl class.
+ */
 @ExtendWith(MockitoExtension.class)
 public class TaskServiceImplTest {
 
@@ -42,6 +45,10 @@ public class TaskServiceImplTest {
     @InjectMocks
     private TaskServiceImpl taskService;
 
+    /**
+     * Unit test for the createTask method of TaskServiceImpl.
+     * Tests the case where a new task is created with a valid request.
+     */
     @Test
     public void createTaskShouldReturnNewTaskWhenGivenValidRequest() {
         HttpServletRequest request = new MockHttpServletRequest();
@@ -61,7 +68,10 @@ public class TaskServiceImplTest {
         assertEquals(user, result.getUser());
     }
 
-
+    /**
+     * Unit test for the markTaskAsComplete method of TaskServiceImpl.
+     * Tests the case where a task is marked as complete with a valid ID.
+     */
     @Test
     public void markTaskAsCompleteShouldReturnUpdatedTaskWhenGivenValidId() {
         Task task = new Task();
@@ -74,12 +84,20 @@ public class TaskServiceImplTest {
         assertEquals(StatusTaskEnum.COMPLETED, result.getStatus());
     }
 
+    /**
+     * Unit test for the deleteTask method of TaskServiceImpl.
+     * Tests the case where a task is deleted with a valid ID.
+     */
     @Test
     public void deleteTaskShouldNotThrowWhenGivenValidId() {
         doNothing().when(taskRepository).deleteById(anyLong());
         assertDoesNotThrow(() -> taskService.deleteTask(1L));
     }
 
+    /**
+     * Unit test for the getAllTasksUserLogged method of TaskServiceImpl.
+     * Tests the case where a list of tasks is retrieved for a valid request.
+     */
     @Test
     public void getAllTasksUserLoggedShouldReturnTaskListWhenGivenValidRequest() {
         HttpServletRequest request = new MockHttpServletRequest();

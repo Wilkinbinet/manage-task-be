@@ -17,11 +17,22 @@ public class UserController {
 
     private final UserServiceImpl userServiceImpl;
 
+    /**
+     * Constructs an instance of the UserController.
+     *
+     * @param userServiceImpl the UserServiceImpl instance
+     */
     @Autowired
     public UserController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
     }
 
+    /**
+     * Registers a new user based on the provided UserDto and returns the created user as a ResponseEntity.
+     *
+     * @param userDto the UserDto object representing the new user
+     * @return the ResponseEntity with the created UserDto object
+     */
     @PostMapping("/register")
     public ResponseEntity<UserDto> registerUser(@Valid @RequestBody UserDto userDto) {
         User user = new User();
