@@ -14,10 +14,21 @@ public class AuthenticationController {
 
     private final AuthenticationServiceImpl authenticationServiceImpl;
 
+    /**
+     * Constructs an instance of the AuthenticationController.
+     *
+     * @param authenticationServiceImpl the AuthenticationServiceImpl instance
+     */
     public AuthenticationController(AuthenticationServiceImpl authenticationServiceImpl) {
         this.authenticationServiceImpl = authenticationServiceImpl;
     }
 
+    /**
+     * Handles the login request and returns the ResponseEntity with the authentication result.
+     *
+     * @param request the AuthenticationDto request object
+     * @return the ResponseEntity with the authentication result
+     */
     @PostMapping("/api/auth/login")
     public ResponseEntity<String> login(@Valid @RequestBody AuthenticationDto request) {
         return ResponseEntity.ok(authenticationServiceImpl.login(request));

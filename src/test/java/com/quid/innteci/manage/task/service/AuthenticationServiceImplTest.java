@@ -17,6 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+
+/**
+ * This class contains unit tests for the AuthenticationServiceImpl class.
+ */
 @ExtendWith(MockitoExtension.class)
 class AuthenticationServiceImplTest {
 
@@ -31,6 +35,9 @@ class AuthenticationServiceImplTest {
 
     private AuthenticationDto authenticationDto;
 
+    /**
+     * Sets up the test environment before each test case.
+     */
     @BeforeEach
     void setUp() {
         authenticationDto = new AuthenticationDto();
@@ -38,6 +45,10 @@ class AuthenticationServiceImplTest {
         authenticationDto.setPassword("password");
     }
 
+    /**
+     * Unit test for the login method of AuthenticationServiceImpl.
+     * Tests the case where user authentication is successful.
+     */
     @Test
     void shouldAuthenticateUser() {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(null);
@@ -50,6 +61,10 @@ class AuthenticationServiceImplTest {
         verify(jwtTokenProvider, times(1)).createToken(anyString());
     }
 
+    /**
+     * Unit test for the login method of AuthenticationServiceImpl.
+     * Tests the case where user authentication fails.
+     */
     @Test
     void shouldNotAuthenticateUser() {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))

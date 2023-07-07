@@ -13,6 +13,9 @@ import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
+/**
+ * This class contains unit tests for the TaskRepository class.
+ */
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class TaskRepositoryTest {
@@ -23,6 +26,9 @@ class TaskRepositoryTest {
     @Autowired
     private TaskRepository taskRepository;
 
+    /**
+     * Unit test for the findByUserId method of TaskRepository.
+     */
     @Test
     void shouldFindByUserId() {
         User user = new User();
@@ -37,6 +43,9 @@ class TaskRepositoryTest {
         assertThat(tasks).hasSize(1).contains(task);
     }
 
+    /**
+     * Unit test for the deleteByIdAndUserId method of TaskRepository.
+     */
     @Test
     void shouldDeleteByIdAndUserId() {
         User user = new User();

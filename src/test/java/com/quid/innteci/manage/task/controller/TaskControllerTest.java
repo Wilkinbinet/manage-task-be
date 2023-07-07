@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,6 +23,9 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
+/**
+ * This class contains unit tests for the TaskController class.
+ */
 @ExtendWith(MockitoExtension.class)
 public class TaskControllerTest {
 
@@ -34,6 +38,9 @@ public class TaskControllerTest {
     private TaskDto taskDto;
     private Task task;
 
+    /**
+     * Sets up the test environment before each test case.
+     */
     @BeforeEach
     void setUp() {
         taskDto = new TaskDto();
@@ -43,6 +50,9 @@ public class TaskControllerTest {
         task.setTitle("Test task");
     }
 
+    /**
+     * Unit test for the getAllTasks method.
+     */
     @Test
     void getAllTasks() {
 
@@ -59,27 +69,40 @@ public class TaskControllerTest {
         assertEquals(1, responseEntity.getBody().size());
     }
 
+    /**
+     * Unit test for the createTask method.
+     */
     @Test
     void createTask() {
         when(taskServiceImpl.createTask(any(), any(TaskDto.class))).thenReturn(task);
-        ResponseEntity<TaskDto> responseEntity = taskController.createTask(new MockHttpServletRequest(), taskDto);
+
+        HttpServletRequest request = new MockHttpServletRequest();
+        ResponseEntity<TaskDto> responseEntity = taskController.createTask(request, taskDto);
 
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
         assertEquals(task.getTitle(), responseEntity.getBody().getTitle());
     }
 
+    /**
+     * Unit test for the markTaskAsComplete method.
+     */
     @Test
     void markTaskAsComplete() {
         when(taskServiceImpl.markTaskAsComplete(anyLong())).thenReturn(task);
+
         ResponseEntity<TaskDto> responseEntity = taskController.markTaskAsComplete(1L);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(task.getTitle(), responseEntity.getBody().getTitle());
     }
 
+    /**
+     * Unit test for the deleteTask method.
+     */
     @Test
     void deleteTask() {
         doNothing().when(taskServiceImpl).deleteTask(anyLong());
+
         ResponseEntity<Void> responseEntity = taskController.deleteTask(1L);
 
         assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());

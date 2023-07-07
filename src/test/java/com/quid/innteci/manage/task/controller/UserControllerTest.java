@@ -17,6 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+/**
+ * This class contains unit tests for the UserController class.
+ */
 @ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
 
@@ -29,20 +32,28 @@ public class UserControllerTest {
     private UserDto userDto;
     private User user;
 
+    /**
+     * Sets up the test environment before each test case.
+     */
     @BeforeEach
     void setUp() {
         userDto = new UserDto();
         userDto.setUserName("Test");
         userDto.setEmail("test@test.com");
         userDto.setPassword("****");
+
         user = new User();
         user.setUserName("Test");
         user.setEmail("test@test.com");
     }
 
+    /**
+     * Unit test for the registerUser method.
+     */
     @Test
     void registerUser() {
         when(userServiceImpl.registerUser(any(User.class))).thenReturn(user);
+
         ResponseEntity<UserDto> responseEntity = userController.registerUser(userDto);
 
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
@@ -50,6 +61,9 @@ public class UserControllerTest {
         assertEquals(user.getEmail(), responseEntity.getBody().getEmail());
     }
 
+    /**
+     * Unit test for the registerUser method with missing required fields.
+     */
     @Test
     void registerUserMissingRequiredFields() {
         UserDto userDto = new UserDto();
@@ -58,6 +72,9 @@ public class UserControllerTest {
         assertThrows(IllegalArgumentException.class, () -> userController.registerUser(userDto));
     }
 
+    /**
+     * Unit test for the registerUser method with an invalid email.
+     */
     @Test
     void registerUserWithInvalidEmail() {
         UserDto userDto = new UserDto();
@@ -68,4 +85,3 @@ public class UserControllerTest {
         assertThrows(IllegalArgumentException.class, () -> userController.registerUser(userDto));
     }
 }
-
